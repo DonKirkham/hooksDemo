@@ -1,6 +1,13 @@
 import * as React from 'react';
 import styles from './LifecycleClassic.module.scss';
-import type { ILifecycleClassicProps } from './ILifecycleClassicProps';
+
+export interface ILifecycleClassicProps {
+  description: string;
+  isDarkTheme: boolean;
+  environmentMessage: string;
+  hasTeamsContext: boolean;
+  userDisplayName: string;
+}
 
 interface ILifecycleClassicState {
   events: string[];
@@ -12,16 +19,22 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
 
   protected timer?: number;
 
+  // Constructor is called when the component is created
+  // It is used to initialize the state and bind methods
   constructor(props: ILifecycleClassicProps) {
     super(props);
-    this.state = { events: ['Constructor: Component is being initialized'], count: 0, counting: false };
+    this.state = { events: ['[lifecycleClassic] constructor: Component is being initialized'], count: 0, counting: false };
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
+  // componentDidMount is called after the component is mounted (added to the DOM)
+  // Perform any setup that is needed after the component is added to the DOM
   componentDidMount(): void {
     this.addEvent('componentDidMount: Component has mounted');
   }
 
+  // componentDidUpdate is called after the component is updated (re-rendered)
+  // Perform any updates that are needed after the component is updated
   componentDidUpdate(prevProps: ILifecycleClassicProps, prevState: ILifecycleClassicState): void {
     if (this.state.events[this.state.events.length - 1] === `[lifecycleClassic] componentDidMount: Component has mounted`) {
       this.addEvent(`componentDidUpdate: Component updated`);
@@ -35,6 +48,8 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
+  // componentWillUnmount is called before the component is removed from the DOM
+  // Perform any cleanup that is needed before the component is removed
   componentWillUnmount(): void {
     this.addEvent('componentWillUnmount: Component is being removed');
     this.stopTimer();

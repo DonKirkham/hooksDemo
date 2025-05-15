@@ -10,7 +10,7 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'LifecycleClassicWebPartStrings';
 import LifecycleClassic from './components/LifecycleClassic';
-import { ILifecycleClassicProps } from './components/ILifecycleClassicProps';
+import { ILifecycleClassicProps } from './components/LifecycleClassic';
 
 export interface ILifecycleClassicWebPartProps {
   description: string;

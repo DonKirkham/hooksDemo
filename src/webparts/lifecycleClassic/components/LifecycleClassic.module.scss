@@ -48,9 +48,10 @@
 }
 
 .eventsContainer {
-  width: 90%;
-  margin-top: 1em;
-  margin-left: auto;
-  margin-right: auto;
+  width: auto;
+  margin: 1em auto;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
