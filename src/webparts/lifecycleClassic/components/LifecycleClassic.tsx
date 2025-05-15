@@ -1,43 +1,109 @@
 import * as React from 'react';
 import styles from './LifecycleClassic.module.scss';
 import type { ILifecycleClassicProps } from './ILifecycleClassicProps';
-import { escape } from '@microsoft/sp-lodash-subset';
 
-export default class LifecycleClassic extends React.Component<ILifecycleClassicProps> {
-  public render(): React.ReactElement<ILifecycleClassicProps> {
-    const {
-      description,
-      isDarkTheme,
-      environmentMessage,
-      hasTeamsContext,
-      userDisplayName
-    } = this.props;
+interface ILifecycleClassicState {
+  events: string[];
+  count: number;
+  counting: boolean;
+}
 
+export default class LifecycleClassic extends React.Component<ILifecycleClassicProps, ILifecycleClassicState> {
+
+  protected timer?: number;
+
+  constructor(props: ILifecycleClassicProps) {
+    super(props);
+    this.state = { events: ['Constructor: Component is being initialized'], count: 0, counting: false };
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.addEvent('componentDidMount: Component has mounted');
+  }
+
+  componentDidUpdate(prevProps: any, prevState: ILifecycleClassicState) {
+    if (this.state.events[this.state.events.length - 1] === `[lifecycleClassic] componentDidMount: Component has mounted`) {
+      this.addEvent(`componentDidUpdate: Component updated`);
+    }
+    if (prevState.count !== this.state.count) {
+      this.addEvent(`Count changed from ${prevState.count} to ${this.state.count}`);
+      this.addEvent(`componentDidUpdate: Component updated`);
+    }
+    if (this.state.count === 10 && prevState.count !== 10 && this.state.counting) {
+      this.stopTimer();
+    }
+  }
+
+  componentWillUnmount() {
+    this.addEvent('componentWillUnmount: Component is being removed');
+    this.stopTimer();
+  }
+
+  addEvent(event: string) {
+    this.setState((prevState) => ({
+      events: [...prevState.events, `[lifecycleClassic] ${event}`]
+    }));
+  }
+
+  startTimer() {
+    if (!this.timer) {
+      this.timer = window.setInterval(() => {
+        this.setState((prevState) => {
+          if (prevState.count < 10) {
+            return { count: prevState.count + 1 };
+          }
+          return null;
+        });
+      }, 1000);
+    }
+  }
+
+  stopTimer() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = undefined;
+      this.setState({ counting: false });
+    }
+  }
+
+  handleButtonClick() {
+    const { count, counting } = this.state;
+    if (count === 10) {
+      this.setState({ count: 0, counting: false }, () => {
+        this.startTimer();
+        this.setState({ counting: true });
+      });
+    } else if (!counting) {
+      this.startTimer();
+      this.setState({ counting: true });
+    } else {
+      this.stopTimer();
+    }
+  }
+
+  render() {
+    const { count, counting, events } = this.state;
+    let buttonLabel = 'Start Count';
+    if (counting) {
+      buttonLabel = 'Stop Count';
+    } else if (count === 10) {
+      buttonLabel = 'Restart Count';
+    }
     return (
-      <section className={`${styles.lifecycleClassic} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div className={styles.welcome}>
-          <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
-          <h2>Well done, {escape(userDisplayName)}!</h2>
-          <div>{environmentMessage}</div>
-          <div>Web part property value: <strong>{escape(description)}</strong></div>
-        </div>
-        <div>
-          <h3>Welcome to SharePoint Framework!</h3>
-          <p>
-            The SharePoint Framework (SPFx) is a extensibility model for Microsoft Viva, Microsoft Teams and SharePoint. It&#39;s the easiest way to extend Microsoft 365 with automatic Single Sign On, automatic hosting and industry standard tooling.
-          </p>
-          <h4>Learn more about SPFx development:</h4>
-          <ul className={styles.links}>
-            <li><a href="https://aka.ms/spfx" target="_blank" rel="noreferrer">SharePoint Framework Overview</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-graph" target="_blank" rel="noreferrer">Use Microsoft Graph in your solution</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-teams" target="_blank" rel="noreferrer">Build for Microsoft Teams using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-viva" target="_blank" rel="noreferrer">Build for Microsoft Viva Connections using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-store" target="_blank" rel="noreferrer">Publish SharePoint Framework applications to the marketplace</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-api" target="_blank" rel="noreferrer">SharePoint Framework API reference</a></li>
-            <li><a href="https://aka.ms/m365pnp" target="_blank" rel="noreferrer">Microsoft 365 Developer Community</a></li>
+      <div className={`${styles.lifecycleClassic} `}>
+        <h2>Lifecycle Methods Demo</h2>
+        <p>Count: {count}</p>
+        <button onClick={this.handleButtonClick}>{buttonLabel}</button>
+        <hr />
+        <div style={{ marginTop: '1em' }}>
+          <h4>Lifecycle Events</h4>
+          <ul>
+            {events.map((event, idx) => <li key={idx}>{event}</li>)}
           </ul>
         </div>
-      </section>
+      </div>
     );
   }
 }
+
