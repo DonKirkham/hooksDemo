@@ -2,14 +2,10 @@ declare interface ILifecycleHooksWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
-  AppLocalEnvironmentSharePoint: string;
-  AppLocalEnvironmentTeams: string;
-  AppLocalEnvironmentOffice: string;
-  AppLocalEnvironmentOutlook: string;
-  AppSharePointEnvironment: string;
-  AppTeamsTabEnvironment: string;
-  AppOfficeEnvironment: string;
-  AppOutlookEnvironment: string;
+  SharePointEnvironment: string;
+  TeamsTabEnvironment: string;
+  OfficeEnvironment: string;
+  OutlookEnvironment: string;
   UnknownEnvironment: string;
 }
 

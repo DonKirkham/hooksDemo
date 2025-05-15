@@ -1,43 +1,106 @@
 import * as React from 'react';
 import styles from './LifecycleHooks.module.scss';
-import type { ILifecycleHooksProps } from './ILifecycleHooksProps';
-import { escape } from '@microsoft/sp-lodash-subset';
 
-export default class LifecycleHooks extends React.Component<ILifecycleHooksProps> {
-  public render(): React.ReactElement<ILifecycleHooksProps> {
-    const {
-      description,
-      isDarkTheme,
-      environmentMessage,
-      hasTeamsContext,
-      userDisplayName
-    } = this.props;
-
-    return (
-      <section className={`${styles.lifecycleHooks} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div className={styles.welcome}>
-          <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
-          <h2>Well done, {escape(userDisplayName)}!</h2>
-          <div>{environmentMessage}</div>
-          <div>Web part property value: <strong>{escape(description)}</strong></div>
-        </div>
-        <div>
-          <h3>Welcome to SharePoint Framework!</h3>
-          <p>
-            The SharePoint Framework (SPFx) is a extensibility model for Microsoft Viva, Microsoft Teams and SharePoint. It&#39;s the easiest way to extend Microsoft 365 with automatic Single Sign On, automatic hosting and industry standard tooling.
-          </p>
-          <h4>Learn more about SPFx development:</h4>
-          <ul className={styles.links}>
-            <li><a href="https://aka.ms/spfx" target="_blank" rel="noreferrer">SharePoint Framework Overview</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-graph" target="_blank" rel="noreferrer">Use Microsoft Graph in your solution</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-teams" target="_blank" rel="noreferrer">Build for Microsoft Teams using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-viva" target="_blank" rel="noreferrer">Build for Microsoft Viva Connections using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-store" target="_blank" rel="noreferrer">Publish SharePoint Framework applications to the marketplace</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-api" target="_blank" rel="noreferrer">SharePoint Framework API reference</a></li>
-            <li><a href="https://aka.ms/m365pnp" target="_blank" rel="noreferrer">Microsoft 365 Developer Community</a></li>
-          </ul>
-        </div>
-      </section>
-    );
-  }
+export interface ILifecycleHooksProps {
+  description: string;
+  isDarkTheme: boolean;
+  environmentMessage: string;
+  hasTeamsContext: boolean;
+  userDisplayName: string;
 }
+
+export interface ILifecycleHooksState {
+  events: string[];
+  count: number;
+  counting: boolean;
+}
+
+const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
+  const [count, setCount] = React.useState(0);
+  const [counting, setCounting] = React.useState(false);
+  const [events, setEvents] = React.useState<string[]>(['[lifecycleHooks] constructor: Component is being initialized']);
+  const timer = React.useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Mimic componentDidMount
+  React.useEffect(() => {
+    setEvents((ev) => [...ev, '[lifecycleHooks] useEffect: Component did mount']);
+    return () => {
+      setEvents((ev) => [...ev, '[lifecycleHooks] useEffect: Component will unmount']);
+      if (timer.current) clearInterval(timer.current);
+    };
+  }, []);
+
+  // Timer effect
+  React.useEffect(() => {
+    if (counting && count < 10) {
+      timer.current = setInterval(() => {
+        setCount((c) => c + 1);
+      }, 1000);
+    } else if (timer.current) {
+      clearInterval(timer.current);
+      timer.current = null;
+    }
+    return () => {
+      if (timer.current) clearInterval(timer.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [counting]);
+
+  const stopTimer = () : void => {
+    setCounting(false);
+    setEvents((ev) => [...ev, '[lifecycleHooks] stopTimer: Timer stopped']);
+  };
+
+  const startTimer = () : void => {
+    setCounting(true);
+    setEvents((ev) => [...ev, '[lifecycleHooks] startTimer: Timer started']);
+  };
+
+  // Mimic componentDidUpdate for count
+  React.useEffect(() => {
+    if (count > 0) {
+      setEvents((ev) => [...ev, `[lifecycleHooks] useEffect: Count changed to ${count}`]);
+    }
+    if (count === 10 && counting) {
+      stopTimer();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count]);
+
+  const handleButtonClick = () : void => {
+    if (count === 10) {
+      setCount(0);
+      setCounting(false);
+      setEvents((ev) => [...ev, '[lifecycleHooks] handleButtonClick: Counter reset']);
+      setTimeout(() => startTimer(), 0);
+    } else if (!counting) {
+      startTimer();
+    } else {
+      stopTimer();
+    }
+  };
+
+  let buttonLabel = 'Start Count';
+  if (counting) {
+    buttonLabel = 'Stop Count';
+  } else if (count === 10) {
+    buttonLabel = 'Restart Count';
+  }
+
+  return (
+    <div className={styles.lifecycleHooks}>
+      <h2>Lifecycle Methods Demo (Hooks)</h2>
+      <p>Count: {count}</p>
+      <button onClick={handleButtonClick}>{buttonLabel}</button>
+      <hr />
+      <div className={styles.eventsContainer} >
+        <h4>Lifecycle Events</h4>
+        <ul>
+          {events.map((event, idx) => <li key={idx}>{event}</li>)}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default LifecycleHooks;
