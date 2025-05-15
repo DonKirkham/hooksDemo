@@ -17,11 +17,29 @@
           "manifest": "./src/webparts/helloWorldHooks/HelloWorldHooksWebPart.manifest.json"
         }
       ]
+    },
+    "lifecycle-classic-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/lifecycleClassic/LifecycleClassicWebPart.js",
+          "manifest": "./src/webparts/lifecycleClassic/LifecycleClassicWebPart.manifest.json"
+        }
+      ]
+    },
+    "lifecycle-hooks-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/lifecycleHooks/LifecycleHooksWebPart.js",
+          "manifest": "./src/webparts/lifecycleHooks/LifecycleHooksWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
     "HelloWorldClassicWebPartStrings": "lib/webparts/helloWorldClassic/loc/{locale}.js",
-    "HelloWorldHooksWebPartStrings": "lib/webparts/helloWorldHooks/loc/{locale}.js"
+    "HelloWorldHooksWebPartStrings": "lib/webparts/helloWorldHooks/loc/{locale}.js",
+    "LifecycleClassicWebPartStrings": "lib/webparts/lifecycleClassic/loc/{locale}.js",
+    "LifecycleHooksWebPartStrings": "lib/webparts/lifecycleHooks/loc/{locale}.js"
   }
 }
