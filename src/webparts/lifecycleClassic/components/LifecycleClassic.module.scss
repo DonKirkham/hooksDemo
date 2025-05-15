@@ -5,30 +5,52 @@
   padding: 1em;
   color: "[theme:bodyText, default: #323130]";
   color: var(--bodyText);
+  text-align: center;
+  border-radius: 1em;
+  border: 2px solid "[theme:bodyDivider, default: #eaeaea]";
+
   &.teams {
     font-family: $ms-font-family-fallbacks;
   }
-}
 
-.welcome {
-  text-align: center;
-}
+  p {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 1em auto;
+    background-color: #000e8e;
+    color: #ffffff;
+    padding: 1em;
+    width: 50%;
+    border-radius: 0.5em;
+  }
 
-.welcomeImage {
-  width: 100%;
-  max-width: 420px;
-}
-
-.links {
-  a {
+  button {
+    margin: 0.5em;
+    background-color: "[theme:primaryButtonBackground, default: #0078d4]";
+    color: #ffffff;
+    // color: var(--primaryButtonText);
+    border-radius: 2em;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
     text-decoration: none;
-    color: "[theme:link, default:#03787c]";
-    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
 
     &:hover {
-      text-decoration: underline;
-      color: "[theme:linkHovered, default: #014446]";
-      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
+      background-color: "[theme:buttonBackgroundHovered, default: #005a9e]";
+      color: "[theme:buttonTextHovered, default: #ffffff]";
+      color: var(--buttonTextHovered);
     }
   }
+}
+
+.eventsContainer {
+  width: 90%;
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }

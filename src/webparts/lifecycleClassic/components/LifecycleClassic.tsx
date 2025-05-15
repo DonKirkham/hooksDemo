@@ -18,11 +18,11 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.addEvent('componentDidMount: Component has mounted');
   }
 
-  componentDidUpdate(prevProps: any, prevState: ILifecycleClassicState) {
+  componentDidUpdate(prevProps: ILifecycleClassicProps, prevState: ILifecycleClassicState): void {
     if (this.state.events[this.state.events.length - 1] === `[lifecycleClassic] componentDidMount: Component has mounted`) {
       this.addEvent(`componentDidUpdate: Component updated`);
     }
@@ -35,18 +35,18 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     this.addEvent('componentWillUnmount: Component is being removed');
     this.stopTimer();
   }
 
-  addEvent(event: string) {
+  addEvent(event: string): void {
     this.setState((prevState) => ({
       events: [...prevState.events, `[lifecycleClassic] ${event}`]
     }));
   }
 
-  startTimer() {
+  startTimer(): void {
     if (!this.timer) {
       this.timer = window.setInterval(() => {
         this.setState((prevState) => {
@@ -59,7 +59,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
-  stopTimer() {
+  stopTimer():void {
     if (this.timer) {
       clearInterval(this.timer);
       this.timer = undefined;
@@ -67,7 +67,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
-  handleButtonClick() {
+  handleButtonClick():void {
     const { count, counting } = this.state;
     if (count === 10) {
       this.setState({ count: 0, counting: false }, () => {
@@ -82,7 +82,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
-  render() {
+  render(): JSX.Element {
     const { count, counting, events } = this.state;
     let buttonLabel = 'Start Count';
     if (counting) {
@@ -96,7 +96,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
         <p>Count: {count}</p>
         <button onClick={this.handleButtonClick}>{buttonLabel}</button>
         <hr />
-        <div style={{ marginTop: '1em' }}>
+        <div className={styles.eventsContainer} >
           <h4>Lifecycle Events</h4>
           <ul>
             {events.map((event, idx) => <li key={idx}>{event}</li>)}
