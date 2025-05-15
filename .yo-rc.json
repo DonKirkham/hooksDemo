@@ -1,7 +1,7 @@
 {
   "@microsoft/generator-sharepoint": {
     "whichFolder": "subdir",
-    "solutionName": "hooksprep",
+    "solutionName": "hooksdemo",
     "componentType": "webpart",
     "template": "react",
     "componentName": "HelloWorldHooks",
@@ -10,8 +10,8 @@
     "nodeVersion": "22.15.1",
     "sdksVersions": {},
     "version": "1.21.1",
-    "libraryName": "hooksprep",
-    "libraryId": "e90b58ed-7489-4978-b2e2-d401b9b31a5e",
+    "libraryName": "hooksdemo",
+    "libraryId": "b335d5e1-7859-4cd9-8a69-47a05bf48d37",
     "environment": "spo",
     "packageManager": "npm",
     "solutionShortDescription": "hooksprep description",

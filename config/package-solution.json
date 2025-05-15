@@ -1,8 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "hooksprep-client-side-solution",
-    "id": "e90b58ed-7489-4978-b2e2-d401b9b31a5e",
+    "name": "hooksdemo-client-side-solution",
+    "id": "b335d5e1-7859-4cd9-8a69-47a05bf48d37",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
@@ -35,6 +35,6 @@
     ]
   },
   "paths": {
-    "zippedPackage": "solution/hooksprep.sppkg"
+    "zippedPackage": "solution/hooksdemo.sppkg"
   }
 }
