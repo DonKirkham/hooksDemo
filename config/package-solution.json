@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "hooksprep-client-side-solution",
+    "id": "e90b58ed-7489-4978-b2e2-d401b9b31a5e",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.21.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "hooksprep description"
+      },
+      "longDescription": {
+        "default": "hooksprep description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "hooksprep Feature",
+        "description": "The feature that activates elements of the hooksprep solution.",
+        "id": "1d30455e-dd6c-4510-9b88-a18a5527a00b",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/hooksprep.sppkg"
+  }
+}
