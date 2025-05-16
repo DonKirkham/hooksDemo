@@ -13,7 +13,7 @@ declare interface ILifecycleHooks2WebPartStrings {
   UnknownEnvironment: string;
 }
 
-declare module 'LifecycleHooks2WebPartStrings' {
+declare module 'LifecycleHooksWebPartStrings' {
   const strings: ILifecycleHooks2WebPartStrings;
   export = strings;
 }

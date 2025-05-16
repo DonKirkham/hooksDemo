@@ -26,11 +26,11 @@
         }
       ]
     },
-    "lifecycle-hooks-2-web-part": {
+    "lifecycle-hooks-web-part": {
       "components": [
         {
-          "entrypoint": "./lib/webparts/lifecycleHooks2/LifecycleHooks2WebPart.js",
-          "manifest": "./src/webparts/lifecycleHooks2/LifecycleHooks2WebPart.manifest.json"
+          "entrypoint": "./lib/webparts/lifecycleHooks/LifecycleHooksWebPart.js",
+          "manifest": "./src/webparts/lifecycleHooks/LifecycleHooksWebPart.manifest.json"
         }
       ]
     }
@@ -40,6 +40,6 @@
     "HelloWorldClassicWebPartStrings": "lib/webparts/helloWorldClassic/loc/{locale}.js",
     "HelloWorldHooksWebPartStrings": "lib/webparts/helloWorldHooks/loc/{locale}.js",
     "LifecycleClassicWebPartStrings": "lib/webparts/lifecycleClassic/loc/{locale}.js",
-    "LifecycleHooks2WebPartStrings": "lib/webparts/lifecycleHooks2/loc/{locale}.js"
+    "LifecycleHooksWebPartStrings": "lib/webparts/lifecycleHooks/loc/{locale}.js"
   }
 }

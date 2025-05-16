@@ -7,23 +7,21 @@ import {
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import * as strings from 'LifecycleHooksWebPartStrings';
+import LifecycleHooks, { ILifecycleHooksProps } from './components/LifecycleHooks';
 
-import * as strings from 'LifecycleHooks2WebPartStrings';
-import LifecycleHooks2 from './components/LifecycleHooks2';
-import { ILifecycleHooksProps } from './components/LifecycleHooks2';
-
-export interface ILifecycleHooks2WebPartProps {
+export interface ILifecycleHooksWebPartProps {
   description: string;
 }
 
-export default class LifecycleHooks2WebPart extends BaseClientSideWebPart<ILifecycleHooks2WebPartProps> {
+export default class LifecycleHooksWebPart extends BaseClientSideWebPart<ILifecycleHooksWebPartProps> {
 
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
 
   public render(): void {
     const element: React.ReactElement<ILifecycleHooksProps> = React.createElement(
-      LifecycleHooks2,
+      LifecycleHooks,
       {
         description: this.properties.description,
         isDarkTheme: this._isDarkTheme,

@@ -18,11 +18,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
     "group": { "default": "Advanced" },
-    "title": { "default": "lifecycleHooks2" },
-    "description": { "default": "lifecycleHooks2 description" },
-    "officeFabricIconFontName": "Page",
+    "title": { "default": "~lifecycle Hooks" },
+    "description": { "default": "lifecycleHooks description" },
+    "officeFabricIconFontName": "Refresh",
     "properties": {
-      "description": "lifecycleHooks2"
+      "description": "lifecycleHooks"
     }
   }]
 }
