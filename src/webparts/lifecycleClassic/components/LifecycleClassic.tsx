@@ -19,22 +19,30 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
 
   protected timer?: number;
 
-  // Constructor is called when the component is created
-  // It is used to initialize the state and bind methods
+  /**
+   * React class constructor. Initializes state and binds event handlers.
+   * This is called once when the component is created.
+   */
   constructor(props: ILifecycleClassicProps) {
     super(props);
     this.state = { events: ['[lifecycleClassic] constructor: Component is being initialized'], count: 0, counting: false };
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
-  // componentDidMount is called after the component is mounted (added to the DOM)
-  // Perform any setup that is needed after the component is added to the DOM
+  /**
+   * React lifecycle method: Called once after the component is mounted into the DOM.
+   * Good place for setup logic, subscriptions, or initial event logging.
+   */
   componentDidMount(): void {
     this.addEvent('componentDidMount: Component has mounted');
   }
 
-  // componentDidUpdate is called after the component is updated (re-rendered)
-  // Perform any updates that are needed after the component is updated
+  /**
+   * React lifecycle method: Called after every update (re-render).
+   * Use this to respond to prop or state changes. Avoid side effects that cause infinite loops.
+   * @param prevProps Previous props
+   * @param prevState Previous state
+   */
   componentDidUpdate(prevProps: ILifecycleClassicProps, prevState: ILifecycleClassicState): void {
     if (this.state.events[this.state.events.length - 1] === `[lifecycleClassic] componentDidMount: Component has mounted`) {
       this.addEvent(`componentDidUpdate: Component updated`);
@@ -48,8 +56,10 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
-  // componentWillUnmount is called before the component is removed from the DOM
-  // Perform any cleanup that is needed before the component is removed
+  /**
+   * React lifecycle method: Called right before the component is removed from the DOM.
+   * Use this to clean up timers, subscriptions, or other resources.
+   */
   componentWillUnmount(): void {
     this.addEvent('componentWillUnmount: Component is being removed');
     this.stopTimer();
@@ -59,6 +69,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     this.setState((prevState) => ({
       events: [...prevState.events, `[lifecycleClassic] ${event}`]
     }));
+    console.log(`[lifecycleClassic] ${event}`);
   }
 
   startTimer(): void {
@@ -70,7 +81,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
           }
           return null;
         });
-      }, 1000);
+      }, 500);
     }
   }
 
