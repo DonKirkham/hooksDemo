@@ -4,7 +4,7 @@
     "solutionName": "hooksdemo",
     "componentType": "webpart",
     "template": "react",
-    "componentName": "lifecycleHooks",
+    "componentName": "lifecycleHooks2",
     "plusBeta": false,
     "isCreatingSolution": false,
     "nodeVersion": "22.15.1",

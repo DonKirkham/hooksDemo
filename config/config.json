@@ -25,12 +25,21 @@
           "manifest": "./src/webparts/lifecycleClassic/LifecycleClassicWebPart.manifest.json"
         }
       ]
+    },
+    "lifecycle-hooks-2-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/lifecycleHooks2/LifecycleHooks2WebPart.js",
+          "manifest": "./src/webparts/lifecycleHooks2/LifecycleHooks2WebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
     "HelloWorldClassicWebPartStrings": "lib/webparts/helloWorldClassic/loc/{locale}.js",
     "HelloWorldHooksWebPartStrings": "lib/webparts/helloWorldHooks/loc/{locale}.js",
-    "LifecycleClassicWebPartStrings": "lib/webparts/lifecycleClassic/loc/{locale}.js"
+    "LifecycleClassicWebPartStrings": "lib/webparts/lifecycleClassic/loc/{locale}.js",
+    "LifecycleHooks2WebPartStrings": "lib/webparts/lifecycleHooks2/loc/{locale}.js"
   }
 }
