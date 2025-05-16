@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import styles from './LifecycleHooks.module.scss';
+
 import * as React from 'react';
+import styles from './LifecycleHooks.module.scss';
 
 export interface ILifecycleHooksProps {
   description: string;
@@ -11,27 +11,29 @@ export interface ILifecycleHooksProps {
 }
 
 const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
-  const [events, setEvents] = useState<string[]>(['[hooks2] constructor: Component is being initialized']);
-  const [count, setCount] = useState<number>(0);
-  const [counting, setCounting] = useState<boolean>(false);
-  const timerRef = useRef<number | undefined>(undefined);
-  const didMountRef = useRef(false);
+  const [events, setEvents] = React.useState<string[]>(['[lifecycleHooks] constructor: Component is being initialized']);
+  const [count, setCount] = React.useState<number>(0);
+  const [counting, setCounting] = React.useState<boolean>(false);
+  const timerRef = React.useRef<number | undefined>(undefined);
+  const didMountRef = React.useRef(false);
 
-  // Helper to add an event
-  const addEvent = useCallback((event: string) => {
-    setEvents(prev => [...prev, `[hooks2] ${event}`]);
+  // Add a lifecycle/state event and log it
+  const addEvent = React.useCallback((event: string) => {
+    setEvents(prev => [...prev, `[lifecycleHooks] ${event}`]);
+    console.log(`[lifecycleHooks] ${event}`);
   }, []);
 
-  // Timer logic
-  const startTimer = useCallback(() => {
+  // Start the interval timer (increments count up to 10)
+  const startTimer = React.useCallback(() => {
     if (!timerRef.current) {
       timerRef.current = window.setInterval(() => {
         setCount(prev => (prev < 10 ? prev + 1 : prev));
-      }, 1000);
+      }, 500);
     }
   }, []);
 
-  const stopTimer = useCallback(() => {
+  // Stop the interval timer and reset state
+  const stopTimer = React.useCallback(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = undefined;
@@ -39,8 +41,8 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
     }
   }, []);
 
-  // componentDidMount
-  useEffect(() => {
+  // Simulate componentDidMount/componentWillUnmount
+  React.useEffect(() => {
     addEvent('componentDidMount: Component has mounted');
     didMountRef.current = true;
     return () => {
@@ -53,15 +55,15 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // componentDidUpdate for count and counting
-  useEffect(() => {
+  // Simulate componentDidUpdate for count/counting changes
+  React.useEffect(() => {
     if (didMountRef.current) {
       addEvent('componentDidUpdate: Component updated');
     }
   }, [count, counting]);
 
-  // Special logic for count change
-  useEffect(() => {
+  // Handle special logic for count changes
+  React.useEffect(() => {
     if (didMountRef.current) {
       if (count > 0) {
         addEvent(`Count changed from ${count - 1} to ${count}`);
@@ -74,7 +76,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
 
-  const handleButtonClick = useCallback(() => {
+  const handleButtonClick = React.useCallback(() => {
     if (count === 10) {
       setCount(0);
       setCounting(false);
