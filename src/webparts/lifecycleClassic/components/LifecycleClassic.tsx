@@ -19,32 +19,22 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
 
   protected timer?: number;
 
-  /**
-   * React class constructor. Initializes state and binds event handlers.
-   * This is called once when the component is created.
-   */
+  // Constructor: initialize state and bind handlers
   constructor(props: ILifecycleClassicProps) {
     super(props);
     this.state = { events: ['[lifecycleClassic] constructor: Component is being initialized'], count: 0, counting: false };
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
-  /**
-   * React lifecycle method: Called once after the component is mounted into the DOM.
-   * Good place for setup logic, subscriptions, or initial event logging.
-   */
+  // componentDidMount: log mount event
   componentDidMount(): void {
     this.addEvent('componentDidMount: Component has mounted');
   }
 
-  /**
-   * React lifecycle method: Called after every update (re-render).
-   * Use this to respond to prop or state changes. Avoid side effects that cause infinite loops.
-   * @param prevProps Previous props
-   * @param prevState Previous state
-   */
+  // componentDidUpdate: log updates and handle count logic
   componentDidUpdate(prevProps: ILifecycleClassicProps, prevState: ILifecycleClassicState): void {
-    if (this.state.events[this.state.events.length - 1] === `[lifecycleClassic] componentDidMount: Component has mounted`) {
+    if (this.state.events[this.state.events.length - 1] ===
+      `[lifecycleClassic] componentDidMount: Component has mounted`) {
       this.addEvent(`componentDidUpdate: Component updated`);
     }
     if (prevState.count !== this.state.count) {
@@ -56,15 +46,13 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
-  /**
-   * React lifecycle method: Called right before the component is removed from the DOM.
-   * Use this to clean up timers, subscriptions, or other resources.
-   */
+  // componentWillUnmount: log unmount and clean up
   componentWillUnmount(): void {
     this.addEvent('componentWillUnmount: Component is being removed');
     this.stopTimer();
   }
 
+  //#region other functions
   addEvent(event: string): void {
     this.setState((prevState) => ({
       events: [...prevState.events, `[lifecycleClassic] ${event}`]
@@ -85,7 +73,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
-  stopTimer():void {
+  stopTimer(): void {
     if (this.timer) {
       clearInterval(this.timer);
       this.timer = undefined;
@@ -93,7 +81,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
   }
 
-  handleButtonClick():void {
+  handleButtonClick(): void {
     const { count, counting } = this.state;
     if (count === 10) {
       this.setState({ count: 0, counting: false }, () => {
@@ -107,6 +95,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
       this.stopTimer();
     }
   }
+  //#endregion
 
   render(): JSX.Element {
     const { count, counting, events } = this.state;
@@ -132,4 +121,3 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     );
   }
 }
-
