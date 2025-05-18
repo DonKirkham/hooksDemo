@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import styles from './LifecycleHooks.module.scss';
 
@@ -17,6 +16,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   const timerRef = React.useRef<number | undefined>(undefined);
   const didMountRef = React.useRef(false);
 
+  //#region other functions
   // Add a lifecycle/state event and log it
   const addEvent = React.useCallback((event: string) => {
     setEvents(prev => [...prev, `[lifecycleHooks] ${event}`]);
@@ -40,6 +40,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
       setCounting(false);
     }
   }, []);
+  //#endregion
 
   // Simulate componentDidMount/componentWillUnmount
   React.useEffect(() => {
@@ -76,6 +77,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
 
+  // #region more functions
   const handleButtonClick = React.useCallback(() => {
     if (count === 10) {
       setCount(0);
@@ -98,7 +100,9 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   } else if (count === 10) {
     buttonLabel = 'Restart Count';
   }
+  // #endregion
 
+  // Render the component
   return (
     <div className={`${styles.lifecycleHooks} `}>
       <h2>Lifecycle Methods Demo</h2>
