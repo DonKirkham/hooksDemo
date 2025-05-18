@@ -3,13 +3,14 @@ import styles from './HelloWorldHooks.module.scss';
 import type { IHelloWorldHooksProps } from './IHelloWorldHooksProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
-const HelloWorldHooks: React.FC<IHelloWorldHooksProps> = ({
-  description,
-  isDarkTheme,
-  environmentMessage,
-  hasTeamsContext,
-  userDisplayName
-}) => {
+const HelloWorldHooks = ({
+    description,
+    isDarkTheme,
+    environmentMessage,
+    hasTeamsContext,
+    userDisplayName
+  }: IHelloWorldHooksProps) => {
+  
   return (
     <section className={`${styles.helloWorldHooks} ${hasTeamsContext ? styles.teams : ''}`}>
       <div className={styles.welcome}>
