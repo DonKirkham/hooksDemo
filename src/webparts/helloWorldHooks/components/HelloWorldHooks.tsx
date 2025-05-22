@@ -4,9 +4,7 @@ import styles from './HelloWorldHooks.module.scss';
 import type { IHelloWorldHooksProps } from './IHelloWorldHooksProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
-const HelloWorldHooks =
-  (props: IHelloWorldHooksProps): React.ReactElement => {
-
+const HelloWorldHooks = (props: IHelloWorldHooksProps): React.ReactElement => {
   const {
     description,
     isDarkTheme,
