@@ -20,33 +20,28 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
   protected timer?: number;
 
   //#region other functions
-  addEvent(event: string): void {
-    this.setState((prevState) => ({
-      events: [...prevState.events, `[lifecycleClassic] ${event}`]
-    }));
-    console.log(`[lifecycleClassic] ${event}`);
-  }
-
   handleButtonClick(): void {
     const { count, counting } = this.state;
     if (count === 10) {
       this.setState({ count: 0, counting: false }, () => {
         this.startTimer();
         this.setState({ counting: true });
-      });
+      });  
     } else if (!counting) {
       this.startTimer();
       this.setState({ counting: true });
     } else {
       this.stopTimer();
-    }
-  }
+    }  
+  }  
 
   startTimer(): void {
+    this.addEvent('Starting counter');
     if (!this.timer) {
       this.timer = window.setInterval(() => {
         this.setState((prevState) => {
           if (prevState.count < 10) {
+            this.addEvent(`Count changed from ${prevState.count} to ${prevState.count + 1}`);
             return { count: prevState.count + 1 };
           }
           return null;
@@ -57,14 +52,22 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
 
   stopTimer(): void {
     if (this.timer) {
+      this.addEvent('Stoping counter');
       clearInterval(this.timer);
       this.timer = undefined;
       this.setState({ counting: false });
     }
   }
+  
+  addEvent(event: string): void {
+    this.setState((prevState) => ({
+      events: [...prevState.events, `[lifecycleClassic] ${event}`]
+    }));
+    console.log(`[lifecycleClassic] ${event}`);
+  }
   //#endregion
 
-  // Constructor: initialize state and bind handlers
+  // Constructor: runs when the component is created
   constructor(props: ILifecycleClassicProps) {
     super(props);
     this.state = {
@@ -75,32 +78,31 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
-  // componentDidMount: log mount event
+  // componentDidMount: runs after the component is mounted
   componentDidMount(): void {
     this.addEvent('componentDidMount: Component has mounted');
   }
 
-  // componentDidUpdate: log updates and handle count logic
+  // componentDidUpdate: runs when props or state change
   componentDidUpdate(prevProps: ILifecycleClassicProps, prevState: ILifecycleClassicState): void {
     if (this.state.events[this.state.events.length - 1] ===
       `[lifecycleClassic] componentDidMount: Component has mounted`) {
-      this.addEvent(`componentDidUpdate: Component updated`);
+      this.addEvent(`componentDidUpdate: Component updated - after mount`);
     }
     if (prevState.count !== this.state.count) {
-      this.addEvent(`Count changed from ${prevState.count} to ${this.state.count}`);
-      this.addEvent(`componentDidUpdate: Component updated`);
+      this.addEvent(`componentDidUpdate: Component updated - count changed`);
     }
     if (this.state.count === 10 && prevState.count !== 10 && this.state.counting) {
       this.stopTimer();
+      this.addEvent(`componentDidUpdate: Component updated - count reached 10`);
     }
   }
 
-  // componentWillUnmount: log unmount and clean up
+  // componentWillUnmount: runs before the component is removed
   componentWillUnmount(): void {
     this.addEvent('componentWillUnmount: Component is being removed');
     this.stopTimer();
   }
-
 
   render(): JSX.Element {
     const { count, counting, events } = this.state;
