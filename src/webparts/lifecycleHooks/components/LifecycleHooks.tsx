@@ -26,6 +26,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   // Start the interval timer (increments count up to 10)
   const startTimer = React.useCallback(() => {
     if (!timerRef.current) {
+      addEvent('Starting counter');
       timerRef.current = window.setInterval(() => {
         setCount(prev => (prev < 10 ? prev + 1 : prev));
       }, 500);
@@ -35,6 +36,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   // Stop the interval timer and reset state
   const stopTimer = React.useCallback(() => {
     if (timerRef.current) {
+      addEvent('Stopping counter');
       clearInterval(timerRef.current);
       timerRef.current = undefined;
       setCounting(false);
@@ -59,9 +61,9 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   // Simulate componentDidUpdate for count/counting changes
   React.useEffect(() => {
     if (didMountRef.current) {
-      addEvent('componentDidUpdate: Component updated');
+      addEvent('componentDidUpdate: Component updated - counting changed');
     }
-  }, [count, counting]);
+  }, [counting]);
 
   // Handle special logic for count changes
   React.useEffect(() => {
@@ -72,7 +74,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
       if (count === 10 && counting) {
         stopTimer();
       }
-      //addEvent('componentDidUpdate: Component updated[count]');
+      addEvent('componentDidUpdate: Component updated - count changed');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
