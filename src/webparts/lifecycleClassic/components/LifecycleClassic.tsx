@@ -19,10 +19,59 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
 
   protected timer?: number;
 
+  //#region other functions
+  addEvent(event: string): void {
+    this.setState((prevState) => ({
+      events: [...prevState.events, `[lifecycleClassic] ${event}`]
+    }));
+    console.log(`[lifecycleClassic] ${event}`);
+  }
+
+  handleButtonClick(): void {
+    const { count, counting } = this.state;
+    if (count === 10) {
+      this.setState({ count: 0, counting: false }, () => {
+        this.startTimer();
+        this.setState({ counting: true });
+      });
+    } else if (!counting) {
+      this.startTimer();
+      this.setState({ counting: true });
+    } else {
+      this.stopTimer();
+    }
+  }
+
+  startTimer(): void {
+    if (!this.timer) {
+      this.timer = window.setInterval(() => {
+        this.setState((prevState) => {
+          if (prevState.count < 10) {
+            return { count: prevState.count + 1 };
+          }
+          return null;
+        });
+      }, 500);
+    }
+  }
+
+  stopTimer(): void {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = undefined;
+      this.setState({ counting: false });
+    }
+  }
+  //#endregion
+
   // Constructor: initialize state and bind handlers
   constructor(props: ILifecycleClassicProps) {
     super(props);
-    this.state = { events: ['[lifecycleClassic] constructor: Component is being initialized'], count: 0, counting: false };
+    this.state = {
+      events: ['[lifecycleClassic] constructor: Component is being initialized'],
+      count: 0,
+      counting: false
+    };
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
@@ -52,50 +101,6 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     this.stopTimer();
   }
 
-  //#region other functions
-  addEvent(event: string): void {
-    this.setState((prevState) => ({
-      events: [...prevState.events, `[lifecycleClassic] ${event}`]
-    }));
-    console.log(`[lifecycleClassic] ${event}`);
-  }
-
-  startTimer(): void {
-    if (!this.timer) {
-      this.timer = window.setInterval(() => {
-        this.setState((prevState) => {
-          if (prevState.count < 10) {
-            return { count: prevState.count + 1 };
-          }
-          return null;
-        });
-      }, 500);
-    }
-  }
-
-  stopTimer(): void {
-    if (this.timer) {
-      clearInterval(this.timer);
-      this.timer = undefined;
-      this.setState({ counting: false });
-    }
-  }
-
-  handleButtonClick(): void {
-    const { count, counting } = this.state;
-    if (count === 10) {
-      this.setState({ count: 0, counting: false }, () => {
-        this.startTimer();
-        this.setState({ counting: true });
-      });
-    } else if (!counting) {
-      this.startTimer();
-      this.setState({ counting: true });
-    } else {
-      this.stopTimer();
-    }
-  }
-  //#endregion
 
   render(): JSX.Element {
     const { count, counting, events } = this.state;

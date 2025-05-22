@@ -4,13 +4,18 @@ import styles from './HelloWorldHooks.module.scss';
 import type { IHelloWorldHooksProps } from './IHelloWorldHooksProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
-const HelloWorldHooks = ({
-  description,
-  isDarkTheme,
-  environmentMessage,
-  hasTeamsContext,
-  userDisplayName
-}: IHelloWorldHooksProps): React.ReactElement => (
+const HelloWorldHooks =
+  (props: IHelloWorldHooksProps): React.ReactElement => {
+
+  const {
+    description,
+    isDarkTheme,
+    environmentMessage,
+    hasTeamsContext,
+    userDisplayName
+  } = props;
+  
+  return (
   <section className={`${styles.helloWorldHooks} ${hasTeamsContext ? styles.teams : ''}`}>
     <div className={styles.welcome}>
       <h2>Hello World Hooks</h2>
@@ -36,6 +41,6 @@ const HelloWorldHooks = ({
       </ul>
     </div>
   </section>
-);
+)};
 
 export default HelloWorldHooks;
