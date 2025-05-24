@@ -1,0 +1,28 @@
+.addTaskInput {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.addTaskInput input {
+  flex: 1;
+  padding: 0.5em;
+  border-radius: 0.25em;
+  border: 1px solid #ccc;
+}
+
+.addTaskInput button {
+  background-color: "[theme:primaryButtonBackground, default: #0078d4]";
+  color: #fff;
+  border: none;
+  border-radius: 2em;
+  padding: 0.5em 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.addTaskInput button:hover {
+  background-color: "[theme:buttonBackgroundHovered, default: #005a9e]";
+  color: "[theme:buttonTextHovered, default: #ffffff]";
+}

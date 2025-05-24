@@ -1,4 +1,4 @@
-declare interface ILifecycleHooks2WebPartStrings {
+declare interface ILifecycleHooksWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;

@@ -8,20 +8,24 @@ import {
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as strings from 'TotalPackageWebPartStrings';
-import TotalPackage, { ITotalPackageProps } from './components/TotalPackage';
+import TotalPackage from './components/TotalPackage';
 
-export interface ITotalPackageWebPartProps {
+export interface ITotalPackageProps {
   description: string;
+  isDarkTheme: boolean;
+  environmentMessage: string;
+  hasTeamsContext: boolean;
+  userDisplayName: string;
 }
 
-export default class TotalPackageWebPart extends BaseClientSideWebPart<ITotalPackageWebPartProps> {
+export default class TotalPackageWebPart extends BaseClientSideWebPart<ITotalPackageProps> {
 
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
 
   public render(): void {
     const element: React.ReactElement<ITotalPackageProps> = React.createElement(
-      TotalPackage,
+      TotalPackage, 
       {
         description: this.properties.description,
         isDarkTheme: this._isDarkTheme,
@@ -37,6 +41,7 @@ export default class TotalPackageWebPart extends BaseClientSideWebPart<ITotalPac
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
       this._environmentMessage = message;
+      console.log(this._environmentMessage);
     });
   }
 
@@ -73,6 +78,7 @@ export default class TotalPackageWebPart extends BaseClientSideWebPart<ITotalPac
     }
 
     this._isDarkTheme = !!currentTheme.isInverted;
+    console.log(this._isDarkTheme);
     const {
       semanticColors
     } = currentTheme;

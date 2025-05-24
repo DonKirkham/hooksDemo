@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/v2/client-side-web-part-manifest.schema.json",
   "id": "3b8e1dda-c074-42da-a1f9-30eece87792f",
   "alias": "TotalPackageWebPart",
   "componentType": "WebPart",
@@ -15,7 +15,7 @@
     "description": { "default": "TotalPackage description" },
     "officeFabricIconFontName": "Refresh",
     "properties": {
-      "description": "TotalPackage"
+      // "description": "TotalPackage"
     }
   }]
 }

@@ -33,13 +33,21 @@
           "manifest": "./src/webparts/lifecycleHooks/LifecycleHooksWebPart.manifest.json"
         }
       ]
-    }
-  },
+    },
+    "total-package-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/totalPackage/TotalPackageWebPart.js",
+          "manifest": "./src/webparts/totalPackage/TotalPackageWebPart.manifest.json"
+        }
+      ]
+    }  },
   "externals": {},
   "localizedResources": {
     "HelloWorldClassicWebPartStrings": "lib/webparts/helloWorldClassic/loc/{locale}.js",
     "HelloWorldHooksWebPartStrings": "lib/webparts/helloWorldHooks/loc/{locale}.js",
     "LifecycleClassicWebPartStrings": "lib/webparts/lifecycleClassic/loc/{locale}.js",
-    "LifecycleHooksWebPartStrings": "lib/webparts/lifecycleHooks/loc/{locale}.js"
+    "LifecycleHooksWebPartStrings": "lib/webparts/lifecycleHooks/loc/{locale}.js",
+    "TotalPackageWebPartStrings": "lib/webparts/totalPackage/loc/{locale}.js"
   }
 }
