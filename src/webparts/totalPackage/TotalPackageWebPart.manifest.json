@@ -13,7 +13,7 @@
     "group": { "default": "Advanced" },
     "title": { "default": "~Total Package" },
     "description": { "default": "TotalPackage description" },
-    "officeFabricIconFontName": "Refresh",
+    "officeFabricIconFontName": "Checklist",
     "properties": {
       // "description": "TotalPackage"
     }
