@@ -17,6 +17,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   const didMountRef = React.useRef(false);
 
   //#region other functions
+
   // Add a lifecycle/state event and log it
   const addEvent = React.useCallback((event: string) => {
     setEvents(prev => [...prev, `[lifecycleHooks] ${event}`]);
