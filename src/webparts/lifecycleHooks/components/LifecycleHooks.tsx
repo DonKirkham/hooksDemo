@@ -43,6 +43,24 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
       setCounting(false);
     }
   }, []);
+
+  const handleButtonClick = React.useCallback(() => {
+    if (count === 10) {
+      setCount(0);
+      setCounting(false);
+      setTimeout(() => {
+        startTimer();
+        setCounting(true);
+      }, 0);
+    } else if (!counting) {
+      startTimer();
+      setCounting(true);
+    } else {
+      stopTimer();
+    }
+  }, [count, counting, startTimer, stopTimer]);
+
+
   //#endregion
 
   // Simulate componentDidMount/componentWillUnmount
@@ -56,7 +74,6 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
         timerRef.current = undefined;
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Simulate componentDidUpdate for count/counting changes
@@ -77,25 +94,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
       }
       addEvent('componentDidUpdate: Component updated - count changed');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
-
-  // #region more functions
-  const handleButtonClick = React.useCallback(() => {
-    if (count === 10) {
-      setCount(0);
-      setCounting(false);
-      setTimeout(() => {
-        startTimer();
-        setCounting(true);
-      }, 0);
-    } else if (!counting) {
-      startTimer();
-      setCounting(true);
-    } else {
-      stopTimer();
-    }
-  }, [count, counting, startTimer, stopTimer]);
 
   let buttonLabel = 'Start Count';
   if (counting) {
@@ -103,7 +102,6 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   } else if (count === 10) {
     buttonLabel = 'Restart Count';
   }
-  // #endregion
 
   // Render the component
   return (
