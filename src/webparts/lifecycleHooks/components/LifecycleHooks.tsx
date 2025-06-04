@@ -108,7 +108,7 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   // Render the component
   return (
     <div className={`${styles.lifecycleHooks} `}>
-      <h2>Lifecycle Methods Demo</h2>
+      <h2>Hooks Lifecycle Methods Demo</h2>
       <p>Count: {count}</p>
       <button onClick={handleButtonClick}>{buttonLabel}</button>
       <hr />

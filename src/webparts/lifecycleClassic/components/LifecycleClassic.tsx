@@ -96,6 +96,9 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
       this.stopTimer();
       this.addEvent(`componentDidUpdate: Component updated - count reached 10`);
     }
+    if (prevState.counting !== this.state.counting) {
+      this.addEvent(`componentDidUpdate: Component updated - counting changed`);
+    }
   }
 
   // componentWillUnmount: runs before the component is removed
@@ -114,7 +117,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
     }
     return (
       <div className={`${styles.lifecycleClassic} `}>
-        <h2>Lifecycle Methods Demo</h2>
+        <h2>Class Lifecycle Methods Demo</h2>
         <p>Count: {count}</p>
         <button onClick={this.handleButtonClick}>{buttonLabel}</button>
         <hr />
