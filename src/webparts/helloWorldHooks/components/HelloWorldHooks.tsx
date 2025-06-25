@@ -16,7 +16,7 @@ export default class HelloWorldHooks extends React.Component<IHelloWorldHooksPro
     return (
       <section className={`${styles.helloWorldHooks} ${hasTeamsContext ? styles.teams : ''}`}>
         <div className={styles.welcome}>
-          <h2>Hello World Hooks</h2>
+          <h2>Hello World Hooks BEFORE</h2>
           <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
           <h2>Well done, {escape(userDisplayName)}!</h2>
           <div>{environmentMessage}</div>
