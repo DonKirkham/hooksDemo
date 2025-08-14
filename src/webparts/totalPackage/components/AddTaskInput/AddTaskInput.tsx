@@ -4,13 +4,13 @@ import TaskContext from '../../hooks/TaskContext';
 import styles from './AddTaskInput.module.scss';
 
 const AddTaskInput = () => {
-  const context = React.useContext(TaskContext);
+  const taskContext = React.useContext(TaskContext);
   const inputRef = React.useRef<HTMLInputElement>(null);
-  if (!context) return null;
-  const { addTask } = context;
+  if (!taskContext) return null;
+
   const handleAddTask = () => {
     if (inputRef.current && inputRef.current.value) {
-      addTask(inputRef.current.value);
+      taskContext.addTask(inputRef.current.value);
       inputRef.current.value = "";
     }
   };

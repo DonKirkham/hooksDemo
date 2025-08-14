@@ -8,11 +8,6 @@ import TaskList from './TaskList/TaskList';
 import styles from './TotalPackage.module.scss';
 
 export interface ITotalPackageProps {
-  description: string;
-  isDarkTheme: boolean;
-  hasTeamsContext: boolean;
-  environmentMessage: string;
-  userDisplayName: string;
 }
 
 const TotalPackage = (props: ITotalPackageProps) => {

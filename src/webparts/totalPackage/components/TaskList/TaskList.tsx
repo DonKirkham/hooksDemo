@@ -4,12 +4,11 @@ import TaskContext from '../../hooks/TaskContext';
 import styles from './TaskList.module.scss';
 
 const TaskList = () => {
-  const context = React.useContext(TaskContext);
-  if (!context) return null;
-  const { tasks } = context;
+  const taskContext = React.useContext(TaskContext);
+  if (!taskContext) return null;
   return (
     <ul className={styles.taskList}>
-      {tasks.map((task, index) => (
+      {taskContext.tasks.map((task, index) => (
         <li key={index}>{task}</li>
       ))}
     </ul>
