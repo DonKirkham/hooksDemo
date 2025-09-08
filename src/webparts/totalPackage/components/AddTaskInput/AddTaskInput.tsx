@@ -9,14 +9,14 @@ const AddTaskInput = (): JSX.Element | null => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   if (!taskContext) return null;
 
-  const handleAddTask = () : void => {
+  const handleAddTask = (): void => {
     if (inputRef.current && inputRef.current.value) {
       taskContext.addTask(inputRef.current.value);
       inputRef.current.value = "";
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) : void => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       handleAddTask();
     }

@@ -10,7 +10,7 @@ import styles from './TotalPackage.module.scss';
 export interface ITotalPackageProps {
 }
 
-const TotalPackage = (props: ITotalPackageProps) : JSX.Element => {
+const TotalPackage = (props: ITotalPackageProps): JSX.Element => {
   const taskState = useTasks();
   return (
     <TaskContext.Provider value={taskState}>

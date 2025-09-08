@@ -26,14 +26,14 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
       this.setState({ count: 0, counting: false }, () => {
         this.startTimer();
         this.setState({ counting: true });
-      });  
+      });
     } else if (!counting) {
       this.startTimer();
       this.setState({ counting: true });
     } else {
       this.stopTimer();
-    }  
-  }  
+    }
+  }
 
   startTimer(): void {
     this.addEvent('Starting counter');
@@ -58,7 +58,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
       this.setState({ counting: false });
     }
   }
-  
+
   addEvent(event: string): void {
     this.setState((prevState) => ({
       events: [...prevState.events, `[lifecycleClassic] ${event}`]
