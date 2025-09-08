@@ -11,11 +11,6 @@ import * as strings from 'TotalPackageWebPartStrings';
 import TotalPackage from './components/TotalPackage';
 
 export interface ITotalPackageProps {
-  description: string;
-  isDarkTheme: boolean;
-  environmentMessage: string;
-  hasTeamsContext: boolean;
-  userDisplayName: string;
 }
 
 export default class TotalPackageWebPart extends BaseClientSideWebPart<ITotalPackageProps> {
@@ -27,11 +22,6 @@ export default class TotalPackageWebPart extends BaseClientSideWebPart<ITotalPac
     const element: React.ReactElement<ITotalPackageProps> = React.createElement(
       TotalPackage, 
       {
-        description: this.properties.description,
-        isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
-        hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
       }
     );
 
