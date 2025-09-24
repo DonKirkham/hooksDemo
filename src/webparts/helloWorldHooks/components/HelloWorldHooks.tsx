@@ -5,6 +5,7 @@ import { escape } from '@microsoft/sp-lodash-subset';
 
 export default class HelloWorldHooks extends React.Component<IHelloWorldHooksProps> {
   public render(): React.ReactElement<IHelloWorldHooksProps> {
+
     const {
       description,
       isDarkTheme,
@@ -41,5 +42,4 @@ export default class HelloWorldHooks extends React.Component<IHelloWorldHooksPro
       </section>
     );
   }
-
 }
