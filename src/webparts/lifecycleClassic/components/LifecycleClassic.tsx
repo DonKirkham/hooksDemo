@@ -67,6 +67,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
   }
   //#endregion
 
+  //#region lifecycle events
   // Constructor: runs when the component is created
   constructor(props: ILifecycleClassicProps) {
     super(props);
@@ -81,6 +82,13 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
   // componentDidMount: runs after the component is mounted
   componentDidMount(): void {
     this.addEvent('componentDidMount: Component has mounted');
+  }
+
+  // componentWillUnmount: runs before the component is removed
+  componentWillUnmount(): void {
+    this.addEvent('componentWillUnmount: Component is being removed');
+    this.stopTimer();
+    this.timer = undefined;
   }
 
   // componentDidUpdate: runs when props or state change
@@ -100,12 +108,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
       this.addEvent(`componentDidUpdate: Component updated - counting changed`);
     }
   }
-
-  // componentWillUnmount: runs before the component is removed
-  componentWillUnmount(): void {
-    this.addEvent('componentWillUnmount: Component is being removed');
-    this.stopTimer();
-  }
+  //#endregion
 
   render(): JSX.Element {
     const { count, counting, events } = this.state;
