@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-const useTasks = () : { tasks: string[]; addTask: (task: string) => void; } => {
+import type { TaskContextType } from './TaskContext';
+
+
+const useTasks = () : TaskContextType => {
   const [tasks, setTasks] = React.useState<string[]>([]);
 
   const addTask = React.useCallback((task: string) => {
