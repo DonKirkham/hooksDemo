@@ -19,7 +19,7 @@ export default class HelloWorldHooks extends React.Component<IHelloWorldHooksPro
     return (
       <section className={`${styles.helloWorldHooks} ${hasTeamsContext ? styles.teams : ''}`}>
         <div className={styles.welcome}>
-          <h2>Hello World Hooks BEFORE</h2>
+          <h2>Hello World!</h2>
           <img alt="" src={isDarkTheme ? welcomeDark : welcomeLight} className={styles.welcomeImage} />
           <h2>Well done, {escape(userDisplayName)}!</h2>
           <div>{environmentMessage}</div>
@@ -32,13 +32,13 @@ export default class HelloWorldHooks extends React.Component<IHelloWorldHooksPro
           </p>
           <h4>Learn more about SPFx development:</h4>
           <ul className={styles.links}>
-            <li><a href="https://aka.ms/spfx" target="_blank" rel="noreferrer">SharePoint Framework Overview</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-graph" target="_blank" rel="noreferrer">Use Microsoft Graph in your solution</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-teams" target="_blank" rel="noreferrer">Build for Microsoft Teams using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-viva" target="_blank" rel="noreferrer">Build for Microsoft Viva Connections using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-store" target="_blank" rel="noreferrer">Publish SharePoint Framework applications to the marketplace</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-api" target="_blank" rel="noreferrer">SharePoint Framework API reference</a></li>
-            <li><a href="https://aka.ms/m365pnp" target="_blank" rel="noreferrer">Microsoft 365 Developer Community</a></li>
+            <li><a href="https://aka.ms/spfx" target="_blank" rel="noreferrer noopener">SharePoint Framework Overview</a></li>
+            <li><a href="https://aka.ms/spfx-yeoman-graph" target="_blank" rel="noreferrer noopener">Use Microsoft Graph in your solution</a></li>
+            <li><a href="https://aka.ms/spfx-yeoman-teams" target="_blank" rel="noreferrer noopener">Build for Microsoft Teams using SharePoint Framework</a></li>
+            <li><a href="https://aka.ms/spfx-yeoman-viva" target="_blank" rel="noreferrer noopener">Build for Microsoft Viva Connections using SharePoint Framework</a></li>
+            <li><a href="https://aka.ms/spfx-yeoman-store" target="_blank" rel="noreferrer noopener">Publish SharePoint Framework applications to the marketplace</a></li>
+            <li><a href="https://aka.ms/spfx-yeoman-api" target="_blank" rel="noreferrer noopener">SharePoint Framework API reference</a></li>
+            <li><a href="https://aka.ms/m365pnp" target="_blank" rel="noreferrer noopener">Microsoft 365 Developer Community</a></li>
           </ul>
         </div>
       </section>
