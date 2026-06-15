@@ -2,6 +2,8 @@ import * as React from 'react';
 import styles from './HelloWorldHooks.module.scss';
 import type { IHelloWorldHooksProps } from './IHelloWorldHooksProps';
 import { escape } from '@microsoft/sp-lodash-subset';
+import welcomeDark from '../assets/welcome-dark.png';
+import welcomeLight from '../assets/welcome-light.png';
 
 export default class HelloWorldHooks extends React.Component<IHelloWorldHooksProps> {
   public render(): React.ReactElement<IHelloWorldHooksProps> {
@@ -18,7 +20,7 @@ export default class HelloWorldHooks extends React.Component<IHelloWorldHooksPro
       <section className={`${styles.helloWorldHooks} ${hasTeamsContext ? styles.teams : ''}`}>
         <div className={styles.welcome}>
           <h2>Hello World Hooks BEFORE</h2>
-          <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
+          <img alt="" src={isDarkTheme ? welcomeDark : welcomeLight} className={styles.welcomeImage} />
           <h2>Well done, {escape(userDisplayName)}!</h2>
           <div>{environmentMessage}</div>
           <div>Web part property value: <strong>{escape(description)}</strong></div>
