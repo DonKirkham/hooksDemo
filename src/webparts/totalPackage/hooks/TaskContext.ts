@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface TaskContextType {
+export interface TaskContextType {
   tasks: string[];
   addTask: (task: string) => void;
 }
