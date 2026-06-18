@@ -49,7 +49,7 @@ This script is the presenter's runbook. Each demo maps to slides in
 
 ---
 
-## Demo 1 — The default SPFx class component
+## Demo 1 — The default SPFx class component and how to convert
 
 **Slides 8, 10 (top). ~8 min.**
 
@@ -70,7 +70,7 @@ This script is the presenter's runbook. Each demo maps to slides in
 
 ---
 
-## Demo 2 — What a function component + hooks looks like
+## Demo 2 — What Lifecycle events look like between class component + hooks looks like
 
 **Slide 9. ~5 min.**
 
