@@ -165,11 +165,11 @@ componentDidUpdate: after mount
    | Hook (slide)               | Where                               | What to show                                                                                                               |
    | -------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
    | **useState** (11)    | `useTasks.ts:5`                   | `useState<string[]>([])` holds the task list.                                                                            |
-   | **useEffect** (11)   | `useTasks.ts:12`                  | On `[tasks]` change: set `document.title` to `(N) My TODO App` + log; **cleanup** resets the title on unmount. |
-   | **useContext** (15)  | `useTaskContext.ts` + 3 consumers | A second custom hook wraps `useContext(TaskContext)` and throws if used outside the provider.                            |
+   | **useCallback** (12) | `useTasks.ts:7`                   | `addTask` memoized so its identity is stable.                                                                            |
    | **useRef** (13)      | `AddTaskInput.tsx:8`              | Uncontrolled input — read/clear `inputRef.current.value`, no state needed.                                              |
    | **useMemo** (14)     | `TaskList.tsx:9`                  | Memoized**sorted** copy of tasks; the `"Sorting tasks..."` log proves it only recomputes when `tasks` change.    |
-   | **useCallback** (12) | `useTasks.ts:7`                   | `addTask` memoized so its identity is stable.                                                                            |
+   | **useEffect** (11)   | `useTasks.ts:12`                  | On `[tasks]` change: set `document.title` to `(N) My TODO App` + log; **cleanup** resets the title on unmount. |
+   | **useContext** (15)  | `useTaskContext.ts` + 3 consumers | A second custom hook wraps `useContext(TaskContext)` and throws if used outside the provider.                            |
    | **Custom hook** (16) | `useTasks.ts`                     | "Just a function that uses built-in hooks." Owns task state + behavior, returns a clean `{ tasks, addTask }`.            |
 3. **Context wiring (slide 15):** open `TotalPackage.tsx`:
 
