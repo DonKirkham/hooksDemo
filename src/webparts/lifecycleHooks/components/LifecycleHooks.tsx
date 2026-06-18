@@ -14,7 +14,6 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   const [count, setCount] = React.useState<number>(0);
   const [counting, setCounting] = React.useState<boolean>(false);
   const timerRef = React.useRef<number | undefined>(undefined);
-  const didMountRef = React.useRef(false);
 
   //#region other functions
   // Add a lifecycle/state event and log it
@@ -65,7 +64,9 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
   // Simulate componentDidMount/componentWillUnmount
   React.useEffect(() => {
     addEvent('componentDidMount: Component has mounted');
-    didMountRef.current = true;
+    // The addEvent above triggers a re-render, mirroring the classic
+    // componentDidUpdate that fires once right after mount
+    addEvent('componentDidUpdate: after mount');
     return () => {
       addEvent('componentWillUnmount: Component is being removed');
       if (timerRef.current) {
@@ -77,21 +78,23 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
 
   // Simulate componentDidUpdate for count/counting changes
   React.useEffect(() => {
-    if (didMountRef.current) {
-      addEvent('componentDidUpdate: Component updated - counting changed');
+    // Skip the initial mount (count 0, not counting); counting only ever
+    // toggles, so the previous value is simply !counting
+    if (count > 0 || counting) {
+      addEvent(`componentDidUpdate: counting changed from ${!counting} to ${counting}`);
     }
   }, [counting]);
 
   // Handle special logic for count changes
   React.useEffect(() => {
-    if (didMountRef.current) {
-      if (count > 0) {
-        addEvent(`Count changed from ${count - 1} to ${count}`);
-      }
-      if (count === 10 && counting) {
-        stopTimer();
-      }
-      addEvent('componentDidUpdate: Component updated - count changed');
+    // Skip the initial mount (count 0); the timer only ever increments by 1,
+    // so the previous value is count - 1
+    if (count > 0) {
+      addEvent(`componentDidUpdate: count changed from ${count - 1} to ${count}`);
+    }
+    if (count === 10 && counting) {
+      stopTimer();
+      addEvent('componentDidUpdate: count reached 10');
     }
   }, [count]);
 

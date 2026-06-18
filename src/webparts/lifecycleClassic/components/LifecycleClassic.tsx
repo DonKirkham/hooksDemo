@@ -41,7 +41,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
       this.timer = window.setInterval(() => {
         this.setState((prevState) => {
           if (prevState.count < 10) {
-            this.addEvent(`Count changed from ${prevState.count} to ${prevState.count + 1}`);
+            //this.addEvent(`Count changed from ${prevState.count} to ${prevState.count + 1}`);
             return { count: prevState.count + 1 };
           }
           return null;
@@ -52,7 +52,7 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
 
   stopTimer(): void {
     if (this.timer) {
-      this.addEvent('Stoping counter');
+      this.addEvent('Stopping counter');
       clearInterval(this.timer);
       this.timer = undefined;
       this.setState({ counting: false });
@@ -95,17 +95,17 @@ export default class LifecycleClassic extends React.Component<ILifecycleClassicP
   componentDidUpdate(prevProps: ILifecycleClassicProps, prevState: ILifecycleClassicState): void {
     if (this.state.events[this.state.events.length - 1] ===
       `[lifecycleClassic] componentDidMount: Component has mounted`) {
-      this.addEvent(`componentDidUpdate: Component updated - after mount`);
+      this.addEvent(`componentDidUpdate: after mount`);
     }
     if (prevState.count !== this.state.count) {
-      this.addEvent(`componentDidUpdate: Component updated - count changed`);
+      this.addEvent(`componentDidUpdate: count changed from ${prevState.count} to ${this.state.count}`);
     }
     if (this.state.count === 10 && prevState.count !== 10 && this.state.counting) {
       this.stopTimer();
-      this.addEvent(`componentDidUpdate: Component updated - count reached 10`);
+      this.addEvent(`componentDidUpdate: count reached 10`);
     }
     if (prevState.counting !== this.state.counting) {
-      this.addEvent(`componentDidUpdate: Component updated - counting changed`);
+      this.addEvent(`componentDidUpdate: counting changed from ${prevState.counting} to ${this.state.counting}`);
     }
   }
   //#endregion
