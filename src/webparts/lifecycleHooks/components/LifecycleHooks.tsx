@@ -44,6 +44,9 @@ const LifecycleHooks: React.FC<ILifecycleHooksProps> = (props) => {
 
   const handleButtonClick = React.useCallback(() => {
     if (count === 10) {
+      // Log the reset here: the count effect can't distinguish mount (count 0)
+      // from a 10 -> 0 reset without tracking the previous value
+      addEvent(`componentDidUpdate: count changed from ${count} to 0`);
       setCount(0);
       setCounting(false);
       setTimeout(() => {
