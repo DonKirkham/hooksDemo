@@ -14,13 +14,13 @@ This session has **three demos**, each building on the last:
 
 ## Web parts used
 
-| Web part | Component file | Used in |
-| --- | --- | --- |
-| Hello World Classic | `src/webparts/helloWorldClassic/components/HelloWorldClassic.tsx` | Demo 1 (reference) |
-| Hello World Hooks | `src/webparts/helloWorldHooks/components/HelloWorldHooks.tsx` | Demo 1 (**converted live**) |
-| Lifecycle Classic | `src/webparts/lifecycleClassic/components/LifecycleClassic.tsx` | Demo 2 |
-| Lifecycle Hooks | `src/webparts/lifecycleHooks/components/LifecycleHooks.tsx` | Demo 2 |
-| Total Package | `src/webparts/totalPackage/...` | Demo 3 |
+| Web part            | Component file                                                      | Used in                           |
+| ------------------- | ------------------------------------------------------------------- | --------------------------------- |
+| Hello World Classic | `src/webparts/helloWorldClassic/components/HelloWorldClassic.tsx` | Demo 1 (reference)                |
+| Hello World Hooks   | `src/webparts/helloWorldHooks/components/HelloWorldHooks.tsx`     | Demo 1 (**converted live**) |
+| Lifecycle Classic   | `src/webparts/lifecycleClassic/components/LifecycleClassic.tsx`   | Demo 2                            |
+| Lifecycle Hooks     | `src/webparts/lifecycleHooks/components/LifecycleHooks.tsx`       | Demo 2                            |
+| Total Package       | `src/webparts/totalPackage/...`                                   | Demo 3                            |
 
 > **Hello World Hooks ships as a class on purpose** — it's the canvas you convert live in Demo 1. Confirm it still starts as `export default class HelloWorldHooks extends React.Component<...>` before the talk.
 
@@ -40,24 +40,26 @@ This session has **three demos**, each building on the last:
 
 ## Timing overview (~70 min)
 
-| Time | Segment | Slides |
-| --- | --- | --- |
-| 0:00–0:08 | Intro / about me / Solution Foundry | 1–5 |
-| 0:08–0:14 | Agenda + FC/Hooks history | 6–7 |
-| 0:14–0:22 | Class component anatomy (set up Demo 1) | 8 |
-| 0:22–0:35 | **Demo 1 — Class → Function Component** | 9–10 |
-| 0:35–0:52 | **Demo 2 — Lifecycle events (useState/useEffect/useRef/useCallback)** | 11–13 |
+| Time       | Segment                                                                              | Slides     |
+| ---------- | ------------------------------------------------------------------------------------ | ---------- |
+| 0:00–0:08 | Intro / about me / Solution Foundry                                                  | 1–5       |
+| 0:08–0:14 | Agenda + FC/Hooks history                                                            | 6–7       |
+| 0:14–0:22 | Class component anatomy (set up Demo 1)                                              | 8          |
+| 0:22–0:35 | **Demo 1 — Class → Function Component**                                      | 9–10      |
+| 0:35–0:52 | **Demo 2 — Lifecycle events (useState/useEffect/useRef/useCallback)**         | 11–13     |
 | 0:52–1:05 | **Demo 3 — The Total Package (all 7 hooks, incl. useMemo/useContext/custom)** | 12, 14–16 |
-| 1:05–1:10 | Wrap-up / Q&A / rate the session | 17 |
+| 1:05–1:10 | Wrap-up / Q&A / rate the session                                                     | 17         |
 
 ---
 
 # Demo 1 — Convert a class component to a function component
+
 **Slides 8–10. ~13 min.**
 
 **Goal:** show the default SPFx class, then convert it to a function component live — "2 lines + cleanup," with no change to the base web part.
 
 ### 1a. Set the baseline (slide 8)
+
 1. In the workbench, add **Hello World Classic**. It renders the standard SPFx welcome card.
 2. Open `HelloWorldClassic.tsx` and walk the structure:
    - `export default class HelloWorldClassic extends React.Component<IHelloWorldClassicProps>` — class declaration with a typed props generic.
@@ -65,6 +67,7 @@ This session has **three demos**, each building on the last:
    - Props are read off `this.props` via destructuring inside `render()`.
 
 ### 1b. The live conversion (slide 10)
+
 Open `HelloWorldHooks.tsx` — identical code, but still a **class**. Convert it on screen:
 
 1. **Change the declaration** — replace the class line *and* the `render` line with one arrow function:
@@ -83,6 +86,7 @@ Open `HelloWorldHooks.tsx` — identical code, but still a **class**. Convert it
 5. Save → watch the rebuild → refresh the workbench. **Hello World Hooks renders identically.**
 
 **Talking points:**
+
 - The base web part (`HelloWorldHooksWebPart.ts`) is **untouched** — `React.createElement(HelloWorldHooks, props)` works whether the component is a class or a function.
 - The whole edit: (1) declaration, (2) `this.props` → `props`, (3) drop `render`/closing brace, (4) `export default`.
 - Define the terms (slide 9): a **function component** is a JS function that takes props and returns a React element — it *is* the render method. **Hooks** are the `use*` functions that give it state and lifecycle.
@@ -92,9 +96,11 @@ Open `HelloWorldHooks.tsx` — identical code, but still a **class**. Convert it
 ---
 
 # Demo 2 — Lifecycle events: class methods vs. hooks
+
 **Slides 11–13. ~17 min.** The two web parts are built to log the **exact same event sequence**, so the comparison is line-for-line.
 
 ### 2a. The class version
+
 1. Add **Lifecycle Classic**. Click **Start Count** — the count ticks 0→10 every 500 ms; the **Lifecycle Events** list fills in (also logged to the console).
 2. Open `LifecycleClassic.tsx` and walk the four lifecycle methods:
    - `constructor` (initializes `state`, **binds** `handleButtonClick`).
@@ -104,36 +110,39 @@ Open `HelloWorldHooks.tsx` — identical code, but still a **class**. Convert it
 3. Point out the cost: logic is scattered across lifecycle method names, and reacting to a change means manually comparing `prevState`.
 
 ### 2b. The hooks version
+
 1. Add **Lifecycle Hooks** — identical behavior and identical event text.
 2. Open `LifecycleHooks.tsx` and map class concepts to hooks:
 
-   | Class | Hook | Lines |
-   | --- | --- | --- |
-   | `this.state` + `setState` | `useState` (`events`, `count`, `counting`) | 13–15 |
-   | `protected timer` field | `useRef` (`timerRef`) — survives renders, no re-render | 16 |
-   | bound methods | `useCallback` (`addEvent`, `startTimer`, `stopTimer`, `handleButtonClick`) | 20–59 |
-   | `componentDidMount` + `componentWillUnmount` | `useEffect(… , [])` with a cleanup `return` | 65–77 |
-   | `componentDidUpdate` (counting) | `useEffect(… , [counting])` | 80–86 |
-   | `componentDidUpdate` (count) | `useEffect(… , [count])` | 89–99 |
-
+   | Class                                            | Hook                                                                                 | Lines  |
+   | ------------------------------------------------ | ------------------------------------------------------------------------------------ | ------ |
+   | `this.state` + `setState`                    | `useState` (`events`, `count`, `counting`)                                   | 13–15 |
+   | `protected timer` field                        | `useRef` (`timerRef`) — survives renders, no re-render                          | 16     |
+   | bound methods                                    | `useCallback` (`addEvent`, `startTimer`, `stopTimer`, `handleButtonClick`) | 20–59 |
+   | `componentDidMount` + `componentWillUnmount` | `useEffect(… , [])` with a cleanup `return`                                     | 65–77 |
+   | `componentDidUpdate` (counting)                | `useEffect(… , [counting])`                                                       | 80–86 |
+   | `componentDidUpdate` (count)                   | `useEffect(… , [count])`                                                          | 89–99 |
 3. **Drive home the dependency array (slide 11):**
+
    - no array → runs after **every** render
    - `[]` → runs **once** on mount; the returned function runs on unmount (= `componentWillUnmount`)
    - `[count]` → runs only when `count` **changes**
-
-4. **useRef (slide 13):** `timerRef` holds the interval id across renders without triggering re-renders — the hooks equivalent of the class's `protected timer` field. Show `timerRef.current = window.setInterval(...)` (line 29) and the cleanup `clearInterval(timerRef.current)` (lines 39, 73).
-
-5. **useCallback (slide 12):** the handlers are wrapped so their identity is stable across renders; `handleButtonClick` lists `[count, counting]` so it's only re-created when those change.
+4. ~~**useRef (slide 13):** `timerRef` holds the interval id across renders without triggering re-renders — the hooks equivalent of the class's `protected timer` field. Show `timerRef.current = window.setInterval(...)` (line 29) and the cleanup `clearInterval(timerRef.current)` (lines 39, 73).~~
+5. ~~**useCallback (slide 12):** the handlers are wrapped so their identity is stable across renders; `handleButtonClick` lists `[count, counting]` so it's only re-created when those change.~~
 
 ### 2c. Prove the output matches
+
 Run both to 10 and show the identical tail in the event lists / console:
+
 ```
 componentDidUpdate: count changed from 9 to 10
 Stopping counter
 componentDidUpdate: count reached 10
 componentDidUpdate: counting changed from true to false
 ```
+
 And right after mount, both show exactly one update event:
+
 ```
 constructor: Component is being initialized
 componentDidMount: Component has mounted
@@ -147,23 +156,23 @@ componentDidUpdate: after mount
 ---
 
 # Demo 3 — The Total Package: all seven hooks in one web part
+
 **Slides 12, 14–16. ~13 min.** A small TODO app that demonstrates every hook from the deck.
 
 1. Add **Total Package**. Type a task, press **Enter** or click **Add Task** — the count and the (alphabetically sorted) list update. Add several. Watch the browser **tab title** and the **console**.
-
 2. **Hook-by-hook tour:**
 
-   | Hook (slide) | Where | What to show |
-   | --- | --- | --- |
-   | **Custom hook** (16) | `useTasks.ts` | "Just a function that uses built-in hooks." Owns task state + behavior, returns a clean `{ tasks, addTask }`. |
-   | **useState** (11) | `useTasks.ts:5` | `useState<string[]>([])` holds the task list. |
-   | **useCallback** (12) | `useTasks.ts:7` | `addTask` memoized so its identity is stable. |
-   | **useEffect** (11) | `useTasks.ts:12` | On `[tasks]` change: set `document.title` to `(N) My TODO App` + log; **cleanup** resets the title on unmount. |
-   | **useContext** (15) | `useTaskContext.ts` + 3 consumers | A second custom hook wraps `useContext(TaskContext)` and throws if used outside the provider. |
-   | **useRef** (13) | `AddTaskInput.tsx:8` | Uncontrolled input — read/clear `inputRef.current.value`, no state needed. |
-   | **useMemo** (14) | `TaskList.tsx:9` | Memoized **sorted** copy of tasks; the `"Sorting tasks..."` log proves it only recomputes when `tasks` change. |
-
+   | Hook (slide)               | Where                               | What to show                                                                                                               |
+   | -------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+   | **useState** (11)    | `useTasks.ts:5`                   | `useState<string[]>([])` holds the task list.                                                                            |
+   | **useEffect** (11)   | `useTasks.ts:12`                  | On `[tasks]` change: set `document.title` to `(N) My TODO App` + log; **cleanup** resets the title on unmount. |
+   | **useContext** (15)  | `useTaskContext.ts` + 3 consumers | A second custom hook wraps `useContext(TaskContext)` and throws if used outside the provider.                            |
+   | **useRef** (13)      | `AddTaskInput.tsx:8`              | Uncontrolled input — read/clear `inputRef.current.value`, no state needed.                                              |
+   | **useMemo** (14)     | `TaskList.tsx:9`                  | Memoized**sorted** copy of tasks; the `"Sorting tasks..."` log proves it only recomputes when `tasks` change.    |
+   | **useCallback** (12) | `useTasks.ts:7`                   | `addTask` memoized so its identity is stable.                                                                            |
+   | **Custom hook** (16) | `useTasks.ts`                     | "Just a function that uses built-in hooks." Owns task state + behavior, returns a clean `{ tasks, addTask }`.            |
 3. **Context wiring (slide 15):** open `TotalPackage.tsx`:
+
    ```tsx
    const taskState = useTasks();
    return (
@@ -172,11 +181,12 @@ componentDidUpdate: after mount
      </TaskContext.Provider>
    );
    ```
-   Then show all three children getting state via `useTaskContext()` with **zero props passed** — the "no prop-drilling" payoff.
 
+   Then show all three children getting state via `useTaskContext()` with **zero props passed** — the "no prop-drilling" payoff.
 4. **Show the effects live:** add a task → tab title becomes `(1) My TODO App`, console logs `[useTasks] 1 task(s)` and `Sorting tasks...`. Remove the web part → tab title resets (cleanup ran).
 
 **Talking points:**
+
 - Two custom hooks here: `useTasks` (state + side effects) and `useTaskContext` (safe context access). Custom hooks = reusable logic, cleaner components.
 - `useMemo` remembers a **value**; `useCallback` remembers a **function** (slide 12 vs 14).
 - `useContext` kills prop-drilling (slide 15's big red ✗ over manual prop passing).
@@ -190,6 +200,7 @@ componentDidUpdate: after mount
 git checkout -- src/webparts/helloWorldHooks/components/HelloWorldHooks.tsx
 git status   # confirm nothing else drifted
 ```
+
 Restart `npm start` if you stopped it.
 
 ---
