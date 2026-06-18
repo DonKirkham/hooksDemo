@@ -1,13 +1,12 @@
-/* eslint-disable @rushstack/no-new-null */
 import * as React from 'react';
-import TaskContext from '../../hooks/TaskContext';
+import useTaskContext from '../../hooks/useTaskContext';
 
 import styles from './TaskSummary.module.scss';
 
-const TaskSummary = (): JSX.Element | null => {
-  const taskContext = React.useContext(TaskContext);
-  if (!taskContext) return null;
-  return <p className={styles.taskSummary}>You have {taskContext.tasks.length} tasks</p>;
+const TaskSummary = (): JSX.Element => {
+  const { tasks } = useTaskContext();
+  const count = tasks.length;
+  return <p className={styles.taskSummary}>You have {count} {count === 1 ? 'task' : 'tasks'}</p>;
 };
 
 export default TaskSummary;

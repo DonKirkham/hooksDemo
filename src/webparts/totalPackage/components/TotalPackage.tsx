@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import useTasks from '../hooks/useTasks';
 import TaskContext from '../hooks/TaskContext';
@@ -7,10 +6,7 @@ import TaskSummary from './TaskSummary/TaskSummary';
 import TaskList from './TaskList/TaskList';
 import styles from './TotalPackage.module.scss';
 
-export interface ITotalPackageProps {
-}
-
-const TotalPackage = (props: ITotalPackageProps): JSX.Element => {
+const TotalPackage = (): JSX.Element => {
   const taskState = useTasks();
   return (
     <TaskContext.Provider value={taskState}>
@@ -25,4 +21,3 @@ const TotalPackage = (props: ITotalPackageProps): JSX.Element => {
 };
 
 export default TotalPackage;
-
