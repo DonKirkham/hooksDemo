@@ -3,6 +3,7 @@ import type { TaskContextType } from './TaskContext';
 
 const useTasks = (): TaskContextType => {
   const [tasks, setTasks] = React.useState<string[]>([]);
+  const pageTitle = React.useRef(document.title);
 
   const addTask = React.useCallback((task: string) => {
     setTasks(prevTasks => [...prevTasks, task]);
@@ -10,10 +11,10 @@ const useTasks = (): TaskContextType => {
 
   // Side effect: react to task changes and clean up on unmount
   React.useEffect(() => {
-    document.title = `(${tasks.length}) My TODO App`;
+    document.title = tasks.length > 0 ? `(${tasks.length}) My TODO App` : pageTitle.current;
     console.log(`[useTasks] ${tasks.length} task(s)`);
     return () => {
-      document.title = 'My TODO App';
+      document.title = pageTitle.current;
     };
   }, [tasks]);
 
