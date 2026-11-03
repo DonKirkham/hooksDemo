@@ -1,0 +1,13 @@
+{
+  "HelloWorldHooks declaration variants": {
+    "scope": "typescriptreact",
+    "prefix": "hwhooks",
+    "description": "Four ways to declare a function component",
+    "body": [
+      "//function ${1:HelloWorldHooks}(props: ${2:IHelloWorldHooksProps}): React.ReactElement {",
+      "//const ${1:HelloWorldHooks} = (props: ${2:IHelloWorldHooksProps}): React.ReactElement => {",
+      "//const ${1:HelloWorldHooks}: React.FC<${2:IHelloWorldHooksProps}> = function (props) {",
+      "const ${1:HelloWorldHooks}: React.FC<${2:IHelloWorldHooksProps}> = (props) => {"
+    ]
+  }
+}
