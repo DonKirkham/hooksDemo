@@ -4,10 +4,10 @@
     "prefix": "hwhooks",
     "description": "Four ways to declare a function component",
     "body": [
-      "//function ${1:HelloWorldHooks}(props: ${2:IHelloWorldHooksProps}): React.ReactElement {",
       "//const ${1:HelloWorldHooks} = (props: ${2:IHelloWorldHooksProps}): React.ReactElement => {",
-      "//const ${1:HelloWorldHooks}: React.FC<${2:IHelloWorldHooksProps}> = function (props) {",
-      "const ${1:HelloWorldHooks}: React.FC<${2:IHelloWorldHooksProps}> = (props) => {"
+      "//function ${1:HelloWorldHooks}(props: ${2:IHelloWorldHooksProps}): React.ReactElement {",
+      "//const ${1:HelloWorldHooks}: React.FC<${2:IHelloWorldHooksProps}> = (props) => {",
+      "//const ${1:HelloWorldHooks}: React.FC<${2:IHelloWorldHooksProps}> = function (props) {"
     ]
   }
 }
