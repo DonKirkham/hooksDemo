@@ -6,8 +6,9 @@ import welcomeDark from '../assets/welcome-dark.png';
 import welcomeLight from '../assets/welcome-light.png';
 
 export default class HelloWorldHooks extends React.Component<IHelloWorldHooksProps> {
+  
   public render(): React.ReactElement<IHelloWorldHooksProps> {
-
+    
     const {
       description,
       isDarkTheme,

@@ -6,7 +6,9 @@ import welcomeDark from '../assets/welcome-dark.png';
 import welcomeLight from '../assets/welcome-light.png';
 
 export default class HelloWorldClassic extends React.Component<IHelloWorldClassicProps> {
+  
   public render(): React.ReactElement<IHelloWorldClassicProps> {
+    
     const {
       description,
       isDarkTheme,
